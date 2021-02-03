@@ -3,14 +3,13 @@ public class Game {
     public static void main(String[] args) {
         System.out.println("This is battleship game.");
         //if you want rules, type rules, else start
-        Player hrac1 = new Player();
+        Human hrac1 = new Human();
+        Computer hrac2 = new Computer();
         hrac1.makeTurn();
 
         //zatial random rozhodenie, potom si moze clovek vybrat
         //vyberanie tak, ze zada prve policko a posledne a ak mam taku lodku, tak ok
-        Grid pcBoard = new Grid();
-        pcBoard.generateRandomBoard();
-        pcBoard.printMe();
+        
 
         Grid myBoard = new Grid();
         myBoard.generateRandomBoard();

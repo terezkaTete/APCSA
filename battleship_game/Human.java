@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Human{
+public class Human extends Player{
     private Scanner scan = new Scanner(System.in);
     private int a,b;
 
@@ -14,6 +14,20 @@ public class Human{
         a= scan.nextInt();
         System.out.println("column:");
         b= scan.nextInt();
-        check(a,b); //todo, tot moze by spolocne pre human aj pc
+
+        while(true){
+            if(super.whatsAt(a,b) == 0 || super.whatsAt(a,b) == 1){ //hmm
+                super.shoot(a,b);
+                break;
+            }
+            else{
+                System.out.println("You already shot at this place, please choose a different one.");
+                System.out.println("row:");
+                a= scan.nextInt();
+                System.out.println("column:");
+                b= scan.nextInt();
+            }
+        }
+        
     }
 }

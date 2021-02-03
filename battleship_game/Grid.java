@@ -31,4 +31,8 @@ public class Grid {
             //lodicky mozu byt bud vertikalne alebo horizontalne, sikmo je bs
         }
     }
+
+    int whatsAt(int a,int b){
+        return this.board[a][b];
+    }
 }
