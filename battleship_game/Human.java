@@ -17,7 +17,7 @@ public class Human extends Player{
 
         while(true){
             if(super.whatsAt(a,b) == 0 || super.whatsAt(a,b) == 1){ //hmm
-                super.shoot(a,b);
+                shoot(a,b);
                 break;
             }
             else{

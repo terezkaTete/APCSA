@@ -10,11 +10,7 @@ public class Game {
         //zatial random rozhodenie, potom si moze clovek vybrat
         //vyberanie tak, ze zada prve policko a posledne a ak mam taku lodku, tak ok
         
-
-        Grid myBoard = new Grid();
-        myBoard.generateRandomBoard();
-        myBoard.printMe();
-
+        
         //strielanie - ak trafis, ides znovu, ak trafis celu lod, tak ti to da vediet 
         //a vystrikuje to vsetky prazdne policka naookolo
     }

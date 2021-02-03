@@ -35,4 +35,16 @@ public class Grid {
     int whatsAt(int a,int b){
         return this.board[a][b];
     }
+
+    void shotAt(int a,int b){
+        if(this.board[a][b] == 0){
+            this.board[a][b] = 2;
+        }
+        else if(this.board[a][b] == 1){
+            this.board[a][b] = 3;
+        }
+        else{
+            System.out.print("error shotAt");
+        }
+    }
 }
