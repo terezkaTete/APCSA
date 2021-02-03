@@ -28,6 +28,6 @@ public class Human extends Player{
                 b= scan.nextInt();
             }
         }
-        
+        //tuto bud zavolat svoj dalsi tah alebo superov, zalezi, ci som trafil alebo nie
     }
 }
