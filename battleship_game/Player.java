@@ -28,8 +28,22 @@ public class Player {
                 potopilSomPraveLodku = true;
                 System.out.println("Congratulations, you sunk the whole ship!");
                 //checknut, ci to uz neboli vsetky lodicky
-                //chcem zaplavit policka naokolo - na to mi pomoze vector s tou lodickou
-                //also chcem vediet, ako dlha je ta lodicka
+                
+                // "shooting" at all the adjacent fields
+                for(int i=0;i<momentalnaLodkaX.size(); i++){
+                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i+1), momentalnaLodkaY.elementAt(0)) == 0){
+                        myBoard.shotAt(momentalnaLodkaX.elementAt(i+1), momentalnaLodkaY.elementAt(0));
+                    }
+                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i-1), momentalnaLodkaY.elementAt(0)) == 0){
+                        myBoard.shotAt(momentalnaLodkaX.elementAt(i-1), momentalnaLodkaY.elementAt(0));
+                    }
+                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i+1)) == 0){
+                        myBoard.shotAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i+1));
+                    }
+                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i-1)) == 0){
+                        myBoard.shotAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i-1));
+                    }
+                }
             }
             else{
                 System.out.println("Nice, you hit the ship!");
@@ -58,12 +72,38 @@ public class Player {
         }
 
         boolean celaLodka = true;
-        //ak x1 = x2, tak potom lodka je zvislo a naopak
+
+        if(momentalnaLodkaX.elementAt(0) == momentalnaLodkaX.elementAt(1)){ //lodka je vertikalne
+            for(int i=0;i<momentalnaLodkaY.size();i++){
+                if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0),momentalnaLodkaY.elementAt(i+1)) == 1 ||
+                myBoard.whatsAt(momentalnaLodkaX.elementAt(0),momentalnaLodkaY.elementAt(i-1)) == 1){
+                    celaLodka = false;
+                }
+            }
+        }
+        else if(momentalnaLodkaY.elementAt(0) == momentalnaLodkaY.elementAt(1)){ //lodka je vertikalne
+            for(int i=0;i<momentalnaLodkaX.size();i++){
+                if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i+1),momentalnaLodkaY.elementAt(0)) == 1 ||
+                myBoard.whatsAt(momentalnaLodkaX.elementAt(i-1),momentalnaLodkaY.elementAt(0)) == 1){
+                    celaLodka = false;
+                }
+            }
+        }
+        else{
+            System.out.println("error jeCelaLodka");
+        }
+
+        if(celaLodka){
+            return true;
+        }
+        else{
+            return false;
+        }
         //ak checknut oba konce - nemusia byt necessary koniec a zaziatok pola
         //ak na jednom z nich je 1 aka nieje voda, tak 
 
         //toto pod tymto funguje, ale grc
-        for(int i=1;i<5;i++){
+        /*for(int i=1;i<5;i++){
             if(myBoard.whatsAt(x+i,y) == 3){
                 
             }
@@ -109,5 +149,6 @@ public class Player {
         }
         if(celaLodka){return true;}
         else{return false;}
+        */
     }
 }

@@ -1,4 +1,4 @@
-Battleship game by Terka G. and Lukas O.
+Battleship game by Terka G.
 
 This is a simple battleship game.
 The Game.java is executable program that will start the game.
