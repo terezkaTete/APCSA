@@ -1,3 +1,5 @@
+//skoro hotove, mozno trosku upravit vstup & pridat out of bounds check
+
 import java.util.Scanner;
 
 public class Human extends Player{
@@ -16,7 +18,7 @@ public class Human extends Player{
         b= scan.nextInt();
 
         while(true){
-            if(super.whatsAt(a,b) == 0 || super.whatsAt(a,b) == 1){ //hmm
+            if(super.whatsAt(a,b) == 0 || super.whatsAt(a,b) == 1){ // todo: out of bounds check
                 shoot(a,b);
                 break;
             }
@@ -28,6 +30,5 @@ public class Human extends Player{
                 b= scan.nextInt();
             }
         }
-        //tuto bud zavolat svoj dalsi tah alebo superov, zalezi, ci som trafil alebo nie
     }
 }

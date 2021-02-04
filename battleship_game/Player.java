@@ -1,36 +1,41 @@
+/*todo: sinknutie lodicky - zmenit vsetky policka naokolo
+                          - ak su vsetky sinknute, zrusit hru
+        jeCelaLodicka prerobit aby bolo krajsie & more useful - aby som vedela sinkovat
+*/
+import java.util.Vector;
 
 public class Player {
     private Grid myBoard = new Grid(); //realne to je vlastne superov board, treba zmenit printovanie, nech to je skryte
     protected boolean uspesnaStrela = false;
-    private int dlzkaLodky;
-    //mozno ze player chce mat svoju boardu
+    protected boolean potopilSomPraveLodku = false;
+    protected Vector<Integer> momentalnaLodkaX = new Vector<>();
+    protected Vector<Integer> momentalnaLodkaY = new Vector<>();
+    //mozno ze player chce mat svoju boardu - pssst
     //chce vediet spravit tah
     public Player(){
         myBoard.generateRandomBoard();
         myBoard.printMe();
     }
-    void makeTurn(){ // choose where you want to strike
-    }
-
+    
     void shoot(int x,int y){
-        if(myBoard.whatsAt(x,y) == 0){ //nemoze sa streilat tam, kde sa uz strielalo, ale to checkovat v makeTurn
+        if(myBoard.whatsAt(x,y) == 0){ 
             System.out.println("water :(");
             uspesnaStrela = false;
         }
         else if (myBoard.whatsAt(x,y) == 1){
+            momentalnaLodkaX.add(x); momentalnaLodkaY.add(y);
             if(jeCelaLodka(x, y)){
-                System.out.println("Congratulations, you sunk the whole boat!");
-                //chcem zaplavit policka naokolo
-                //pocitac to nejako potrebuje vediet - po a ze sa to stalo a po b ze ako dlha bola ta lodicka
+                potopilSomPraveLodku = true;
+                System.out.println("Congratulations, you sunk the whole ship!");
+                //checknut, ci to uz neboli vsetky lodicky
+                //chcem zaplavit policka naokolo - na to mi pomoze vector s tou lodickou
+                //also chcem vediet, ako dlha je ta lodicka
             }
             else{
-                System.out.println("Nice, you hit the boat!");
+                System.out.println("Nice, you hit the ship!");
             }
             uspesnaStrela = true; //mozno este dalsia premenna, ci bola posledne potopena lod
             System.out.println("You can have another try");
-            //je cela lod potopena?
-            //ak ano, tak vypisat congrats + dlzka lode & vystrielat policka naokolo
-            //ak nie
         }
         else{
             System.out.println("error shoot");
@@ -42,13 +47,25 @@ public class Player {
         return myBoard.whatsAt(a, b);
     }
 
+    boolean succefulShot(){
+        if(uspesnaStrela){return true;}
+        else{return false;}
+    }
+
     boolean jeCelaLodka(int x,int y){
-        uspesnaStrela =true;
-        dlzkaLodky = 0;
+        if(momentalnaLodkaX.size()<=1){
+            return false;
+        }
+
         boolean celaLodka = true;
+        //ak x1 = x2, tak potom lodka je zvislo a naopak
+        //ak checknut oba konce - nemusia byt necessary koniec a zaziatok pola
+        //ak na jednom z nich je 1 aka nieje voda, tak 
+
+        //toto pod tymto funguje, ale grc
         for(int i=1;i<5;i++){
             if(myBoard.whatsAt(x+i,y) == 3){
-                dlzkaLodky++;
+                
             }
             else{
                 if(myBoard.whatsAt(x+i,y) == 1){
@@ -59,7 +76,7 @@ public class Player {
         }
         for(int i=1;i<5;i++){
             if(myBoard.whatsAt(x-i,y) == 3){
-                dlzkaLodky++;
+                
             }
             else{
                 if(myBoard.whatsAt(x-i,y) == 1){
@@ -70,7 +87,7 @@ public class Player {
         }
         for(int i=1;i<5;i++){
             if(myBoard.whatsAt(x,y+i) == 3){
-                dlzkaLodky++;
+                
             }
             else{
                 if(myBoard.whatsAt(x,y+i) == 1){
@@ -81,7 +98,7 @@ public class Player {
         }
         for(int i=1;i<5;i++){
             if(myBoard.whatsAt(x,y-i) == 3){
-                dlzkaLodky++;
+                
             }
             else{
                 if(myBoard.whatsAt(x,y-i) == 1){

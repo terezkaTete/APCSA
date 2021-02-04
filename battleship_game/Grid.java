@@ -1,3 +1,5 @@
+//pridat generateRandomBoard a upravit to printovanie
+
 import java.util.Random;
 
 public class Grid {
