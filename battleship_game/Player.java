@@ -1,6 +1,9 @@
-/*todo: sinknutie lodicky - zmenit vsetky policka naokolo
+/*todo: sinknutie lodicky - zmenit vsetky policka naokolo - done asi
                           - ak su vsetky sinknute, zrusit hru
         jeCelaLodicka prerobit aby bolo krajsie & more useful - aby som vedela sinkovat
+        printuje mi to aj pre pocitac, to asi nechcem :((
+
+    fixnut: out of bounds pri checkovani celej lodicky :((
 */
 import java.util.Vector;
 
@@ -28,7 +31,7 @@ public class Player {
                 potopilSomPraveLodku = true;
                 System.out.println("Congratulations, you sunk the whole ship!");
                 //checknut, ci to uz neboli vsetky lodicky
-                
+
                 // "shooting" at all the adjacent fields
                 for(int i=0;i<momentalnaLodkaX.size(); i++){
                     if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i+1), momentalnaLodkaY.elementAt(0)) == 0){
@@ -76,7 +79,7 @@ public class Player {
         if(momentalnaLodkaX.elementAt(0) == momentalnaLodkaX.elementAt(1)){ //lodka je vertikalne
             for(int i=0;i<momentalnaLodkaY.size();i++){
                 if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0),momentalnaLodkaY.elementAt(i+1)) == 1 ||
-                myBoard.whatsAt(momentalnaLodkaX.elementAt(0),momentalnaLodkaY.elementAt(i-1)) == 1){
+                myBoard.whatsAt(momentalnaLodkaX.elementAt(0),momentalnaLodkaY.elementAt(i-1)) == 1){ //out of bounds
                     celaLodka = false;
                 }
             }
@@ -84,7 +87,7 @@ public class Player {
         else if(momentalnaLodkaY.elementAt(0) == momentalnaLodkaY.elementAt(1)){ //lodka je vertikalne
             for(int i=0;i<momentalnaLodkaX.size();i++){
                 if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i+1),momentalnaLodkaY.elementAt(0)) == 1 ||
-                myBoard.whatsAt(momentalnaLodkaX.elementAt(i-1),momentalnaLodkaY.elementAt(0)) == 1){
+                myBoard.whatsAt(momentalnaLodkaX.elementAt(i-1),momentalnaLodkaY.elementAt(0)) == 1){ // out of bounds
                     celaLodka = false;
                 }
             }

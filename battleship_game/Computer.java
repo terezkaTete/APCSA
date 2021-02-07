@@ -27,11 +27,12 @@ public class Computer extends Player{
             shoot(a,b);
         }
         else{
-            if(uspesnaStrela && !potopilSomPraveLodku){
-                if(whatsAt(lastTurnA, lastTurnB) == 0){
+            if(uspesnaStrela && !potopilSomPraveLodku){ //viem celu mapu, co je kinda podvadzanie, ale psst
+
+                if(momentalnaLodkaX.elementAt(0) == momentalnaLodkaX.elementAt(1)){
 
                 }
-                //viem celu mapu, co je kinda podvadzanie, ale psst
+                
                 //checknut tie 4 policka naookolo - ak je jedno z nich uz 3, tak potom do toho opacneho smeru
                 // pamatat si lodicku, ktoru strielam - prestat, iba ak je dostrielana, ak je zastrelena voda na jednej strane, tak streilat na druhu
             }
