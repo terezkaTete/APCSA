@@ -1,5 +1,5 @@
 //generateRandomBoard - momentalne sa mozu lodicky dotykat sikmo
-//upravit to printovanie - nech sa hracovi zobrazuje jeho boarda a superova inak
+//upravit to printovanie - nech sa hracovi zobrazuje jeho boarda a superova inak -done
 
 import java.util.Random;
 
@@ -14,9 +14,41 @@ public class Grid {
     }
 
     void printMe(){
+        System.out.println("Your board:"); 
         for(int i=0;i<10;i++){
             for(int j=0;j<10;j++){
-                System.out.print(this.board[i][j]); //upravit printovanie, aby to konvertovalo z cisel na znaky
+                if(this.board[i][j] == 0){
+                    System.out.print(".");
+                }
+                if(this.board[i][j] == 1){
+                    System.out.print("B");
+                }
+                if(this.board[i][j] == 2){
+                    System.out.print("*");
+                }
+                if(this.board[i][j] == 3){
+                    System.out.print("x");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
+        System.out.println();
+    }
+
+    void printOpponent(){
+        System.out.println("Opponent's board:"); 
+        for(int i=0;i<10;i++){
+            for(int j=0;j<10;j++){
+                if(this.board[i][j] == 0 || this.board[i][j] == 1){
+                    System.out.print("?");
+                }
+                if(this.board[i][j] == 2){
+                    System.out.print("*");
+                }
+                if(this.board[i][j] == 3){
+                    System.out.print("x");
+                }
             }
             System.out.println();
         }

@@ -6,6 +6,12 @@ It creates two players, one of class Human and another of class Computer. Both o
 Class Player has a constructor that uses generateRandomBoard() from Grid class to create board for each player. This class also takes care of evaluating the shooting request. It gives the appropriate response and changes values of board field so it represents the situation after the turn.
 Both Computer and Human subclass have one most important function and that it makeTurn() which does exactly so. In Human that means asking for coordinates from real-life players. Computer chooses the position on some logic that is designed to decrease the necessary number of turns.
 
+The printed map means following:
+- ? - you don't know yet, because it's opponent's board and you didn't shoot at it yet
+- . - water
+- x - shot ship
+- * - shot water
+- B - ship that wasn't shot yet
 
 
 RULES:

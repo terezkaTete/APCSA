@@ -1,5 +1,5 @@
-//todo:strielanie, ak mam prave nejako nefinishnutu lodku
-//     krajsi stack, ktory bude davat rozumnejsie guesses
+//todo:strielanie, ak mam prave nejako nefinishnutu lodku - asi done
+//     krajsi stack, ktory bude davat rozumnejsie guesses - also randomiznut ho
 
 import java.util.Random;
 import java.util.Stack;
@@ -8,34 +8,94 @@ public class Computer extends Player{
     private Random rand = new Random();
     private boolean prvyTah = true;
     private int a,b; //position where it's going to shoot
-    private int lastTurnA, lastTurnB;
     private Stack <Integer> stack1 = new Stack(); 
-    private Stack <Integer> stack2 = new Stack();    
-    private boolean vybuchnuta5 = false;
-    private boolean vybuchnuta4 = true;
+    private Stack <Integer> stack2 = new Stack();
 
     public Computer(){
-
+        myBoard.printMe();
     }
 
     void makeTurn(){ //spravit joke superpocitac, ktory vzdy vsetko spravne uhadne, lebo k tomu bude mat pristup
         if(prvyTah){
             a = rand.nextInt(10); //+-1 ci ako?
             b = rand.nextInt(10);
-            lastTurnA = a;
-            lastTurnB = b;
             shoot(a,b);
         }
-        else{
-            if(uspesnaStrela && !potopilSomPraveLodku){ //viem celu mapu, co je kinda podvadzanie, ale psst
-
-                if(momentalnaLodkaX.elementAt(0) == momentalnaLodkaX.elementAt(1)){
-
+        else{            
+            if(uspesnaStrela && !potopilSomPraveLodku){ 
+                if(momentalnaLodkaX.size() == 1){ //strialanie po prvom hite, ked este neviem ci je lodka vertikalna alebo horizontalna
+                    boolean uzSomStrelila = false;
+                    if(momentalnaLodkaY.elementAt(0)-1 >= 0){
+                        boolean strelilaSom = false;
+                        if(whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(0)-1) != 2 
+                        && whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(0)-1) != 3 ) {
+                            shoot(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(0)-1);
+                            uzSomStrelila = true;
+                        }
+                    }
+                    if(momentalnaLodkaY.elementAt(0)+1 < 10 && !uzSomStrelila){
+                        if(whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(0)+1) != 2 
+                        && whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(0)+1) != 3 ) {
+                            shoot(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(0)+1);
+                            uzSomStrelila = true;
+                        }
+                    }
+                    if(momentalnaLodkaX.elementAt(0)-1 >= 0 && !uzSomStrelila){
+                        if(whatsAt(momentalnaLodkaX.elementAt(0)-1, momentalnaLodkaY.elementAt(0)) != 2 
+                        && whatsAt(momentalnaLodkaX.elementAt(0)-1, momentalnaLodkaY.elementAt(0)) != 3 ) {
+                            shoot(momentalnaLodkaX.elementAt(0)-1, momentalnaLodkaY.elementAt(0));
+                            uzSomStrelila = true;
+                        }
+                    }
+                    if(momentalnaLodkaX.elementAt(0)+1 < 10 && !uzSomStrelila){
+                        if(whatsAt(momentalnaLodkaX.elementAt(0)+1, momentalnaLodkaY.elementAt(0)) != 2 
+                        && whatsAt(momentalnaLodkaX.elementAt(0)+1, momentalnaLodkaY.elementAt(0)) != 3 ) {
+                            shoot(momentalnaLodkaX.elementAt(0)+1, momentalnaLodkaY.elementAt(0));
+                            uzSomStrelila = true;
+                        }
+                    }
+                }
+                else if(momentalnaLodkaX.elementAt(0) == momentalnaLodkaX.elementAt(1)){
+                    for(int i=0;i<momentalnaLodkaY.size(); i++){
+                        if(momentalnaLodkaY.elementAt(i)-1 >= 0){
+                            if(whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)-1) != 2 
+                            && whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)-1) != 3 ) {
+                                shoot(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)-1);
+                                break;
+                            }
+                        }
+                        if(momentalnaLodkaY.elementAt(i)+1 < 10){
+                            if(whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)+1) != 2 
+                            && whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)+1) != 3 ) {
+                                shoot(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)+1);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else{
+                    for(int i=0;i<momentalnaLodkaX.size(); i++){
+                        if(momentalnaLodkaX.elementAt(i)-1 >= 0){
+                            if(whatsAt(momentalnaLodkaX.elementAt(i)-1, momentalnaLodkaY.elementAt(0)) != 2 
+                            && whatsAt(momentalnaLodkaX.elementAt(i)-1, momentalnaLodkaY.elementAt(0)) != 3 ) {
+                                shoot(momentalnaLodkaX.elementAt(i)-1, momentalnaLodkaY.elementAt(0));
+                                break;
+                            }
+                        }
+                        if(momentalnaLodkaX.elementAt(i)+1 < 10){
+                            if(whatsAt(momentalnaLodkaX.elementAt(i)+1, momentalnaLodkaY.elementAt(0)) != 2 
+                            && whatsAt(momentalnaLodkaX.elementAt(i)+1, momentalnaLodkaY.elementAt(0)) != 3 ) {
+                                shoot(momentalnaLodkaX.elementAt(i)+1, momentalnaLodkaY.elementAt(0));
+                                break;
+                            }
+                        }
+                    }
                 }
                 
                 //checknut tie 4 policka naookolo - ak je jedno z nich uz 3, tak potom do toho opacneho smeru
                 // pamatat si lodicku, ktoru strielam - prestat, iba ak je dostrielana, ak je zastrelena voda na jednej strane, tak streilat na druhu
             }
+
             else{
                 if(potopilSomPraveLodku){
                     createNewStack();
@@ -58,7 +118,7 @@ public class Computer extends Player{
         stack2.removeAllElements();
         for(int i=0;i<10;i++){
             for(int j=0;j<10;j++){
-                if(whatsAt(i, j) == 0 ){//&& vybuchnuta4 && vybuchnuta5
+                if(whatsAt(i, j) == 0 || whatsAt(i, j) == 0){//&& vybuchnuta4 && vybuchnuta5
                     if(i%2 == j%2){
                         stack1.push(i);
                         stack2.push(j);
@@ -69,5 +129,22 @@ public class Computer extends Player{
                 }
             }
         }
+    }
+
+    void shoot(int x,int y){
+        super.shoot(x, y);
+        if(!uspesnaStrela){
+            System.out.printf("Computer shot at [%d, %d] and didn't hit your ship :)\n", x, y);
+        }
+        else{
+            if(potopilSomPraveLodku){
+                System.out.printf("Computer shot at [%d, %d] and sunk your whole ship :((\n", x, y);
+            }
+            else{
+                System.out.printf("Computer shot at [%d, %d] and hit your ship :(\n", x, y);
+            }
+        }
+
+        myBoard.printMe();
     }
 }

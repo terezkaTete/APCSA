@@ -1,4 +1,6 @@
+
 //skoro done, len dorobit break cyklu a mozno blbosti na zaciatok
+import java.util.concurrent.TimeUnit;
 
 public class Game {
 
@@ -12,10 +14,19 @@ public class Game {
 
         hrac1.makeTurn();
         int lastPlayer = 1;
-        while(true){
-            //chce to byt breaknute ked sa sunknu vsetky lode
-            if(lastPlayer == 1){
-                if(hrac1.succefulShot()){
+        while (true) {
+            // chce to byt breaknute ked sa sunknu vsetky lode
+            if(hrac1.jeSunknuteVsetko()){
+                System.out.println("Congratulations, you won the game!");
+                break;
+            }
+            if(hrac2.jeSunknuteVsetko()){
+                System.out.println("Computer won the game! Better luck next time ;)");
+                break;
+            }
+            spinkaj();
+            if (lastPlayer == 1) {
+                if (hrac1.succefulShot()) {
                     hrac1.makeTurn();
                 }
                 else{
@@ -32,6 +43,14 @@ public class Game {
                     lastPlayer = 1;
                 }
             }
+        }
+    }
+    static void spinkaj(){
+        try {
+            TimeUnit.MILLISECONDS.sleep(2000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 }

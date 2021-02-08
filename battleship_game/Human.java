@@ -7,7 +7,7 @@ public class Human extends Player{
     private int a,b;
 
     public Human(){
-
+        myBoard.printOpponent();
     }
 
     void makeTurn(){ // choose where you want to strike
@@ -39,5 +39,22 @@ public class Human extends Player{
                 b= scan.nextInt();
             }
         }
+    }
+
+    void shoot(int x,int y){
+        super.shoot(x, y);
+        if(!uspesnaStrela){
+            System.out.println("water :(");
+        }
+        else{
+            if(super.potopilSomPraveLodku) {
+                System.out.println("Congratulations, you sunk the whole ship!");
+            }
+            else{
+                System.out.println("Nice, you hit the ship!");
+            }
+            System.out.println("You can have another try");
+        }
+        myBoard.printOpponent();
     }
 }

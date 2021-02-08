@@ -1,35 +1,34 @@
-/*todo: sinknutie lodicky - zmenit vsetky policka naokolo - done asi
-                          - ak su vsetky sinknute, zrusit hru
-        jeCelaLodicka prerobit aby bolo krajsie & more useful - aby som vedela sinkovat
-        printuje mi to aj pre pocitac, to asi nechcem :((
+/*todo: sinknutie lodicky - zmenit vsetky policka naokolo - done okrem tych nasikmo
 
     fixnut: out of bounds pri checkovani celej lodicky :((
 */
 import java.util.Vector;
 
 public class Player {
-    private Grid myBoard = new Grid(); //realne to je vlastne superov board, treba zmenit printovanie, nech to je skryte
+    protected Grid myBoard = new Grid(); //realne to je vlastne superov board
     protected boolean uspesnaStrela = false;
     protected boolean potopilSomPraveLodku = false;
     protected Vector<Integer> momentalnaLodkaX = new Vector<>();
     protected Vector<Integer> momentalnaLodkaY = new Vector<>();
+    private int nSunknutych = 0;
     //mozno ze player chce mat svoju boardu - pssst
     //chce vediet spravit tah
     public Player(){
         myBoard.generateRandomBoard();
-        myBoard.printMe();
     }
     
     void shoot(int x,int y){
         if(myBoard.whatsAt(x,y) == 0){ 
-            System.out.println("water :(");
+            //System.out.println("water :(");
             uspesnaStrela = false;
         }
         else if (myBoard.whatsAt(x,y) == 1){
             momentalnaLodkaX.add(x); momentalnaLodkaY.add(y);
             if(jeCelaLodka(x, y)){
                 potopilSomPraveLodku = true;
-                System.out.println("Congratulations, you sunk the whole ship!");
+                nSunknutych++;
+                //System.out.println("Congratulations, you sunk the whole ship!");
+
                 //checknut, ci to uz neboli vsetky lodicky
 
                 // "shooting" at all the adjacent fields
@@ -49,10 +48,10 @@ public class Player {
                 }
             }
             else{
-                System.out.println("Nice, you hit the ship!");
+                //System.out.println("Nice, you hit the ship!");
             }
             uspesnaStrela = true; //mozno este dalsia premenna, ci bola posledne potopena lod
-            System.out.println("You can have another try");
+            //System.out.println("You can have another try");
         }
         else{
             System.out.println("error shoot");
@@ -60,6 +59,12 @@ public class Player {
         myBoard.shotAt(x, y);
     }
 
+    boolean jeSunknuteVsetko(){
+        if(nSunknutych == 5){
+            return true;
+        }
+        return false;
+    }
     int whatsAt(int a, int b){
         return myBoard.whatsAt(a, b);
     }
