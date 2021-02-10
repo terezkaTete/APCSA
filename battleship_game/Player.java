@@ -19,31 +19,39 @@ public class Player {
     
     void shoot(int x,int y){
         if(myBoard.whatsAt(x,y) == 0){ 
-            //System.out.println("water :(");
+            myBoard.shotAt(x, y);
             uspesnaStrela = false;
         }
         else if (myBoard.whatsAt(x,y) == 1){
-            momentalnaLodkaX.add(x); momentalnaLodkaY.add(y);
+            momentalnaLodkaX.add(x); momentalnaLodkaY.add(y); 
+            myBoard.shotAt(x, y);
             if(jeCelaLodka(x, y)){
                 potopilSomPraveLodku = true;
                 nSunknutych++;
-                //System.out.println("Congratulations, you sunk the whole ship!");
 
                 //checknut, ci to uz neboli vsetky lodicky
 
                 // "shooting" at all the adjacent fields
                 for(int i=0;i<momentalnaLodkaX.size(); i++){
-                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i+1), momentalnaLodkaY.elementAt(0)) == 0){
-                        myBoard.shotAt(momentalnaLodkaX.elementAt(i+1), momentalnaLodkaY.elementAt(0));
+                    if(momentalnaLodkaX.elementAt(i)+1 < 10){
+                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i)+1, momentalnaLodkaY.elementAt(0)) == 0){ //boa out of bounds
+                            myBoard.shotAt(momentalnaLodkaX.elementAt(i)+1, momentalnaLodkaY.elementAt(0));
+                        }
                     }
-                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i-1), momentalnaLodkaY.elementAt(0)) == 0){
-                        myBoard.shotAt(momentalnaLodkaX.elementAt(i-1), momentalnaLodkaY.elementAt(0));
+                    if(momentalnaLodkaX.elementAt(i)-1 >= 0){
+                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i)-1, momentalnaLodkaY.elementAt(0)) == 0){
+                            myBoard.shotAt(momentalnaLodkaX.elementAt(i)-1, momentalnaLodkaY.elementAt(0));
+                        }
                     }
-                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i+1)) == 0){
-                        myBoard.shotAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i+1));
+                    if(momentalnaLodkaY.elementAt(i)+1 < 10){
+                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)+1) == 0){
+                            myBoard.shotAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)+1);
+                        }
                     }
-                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i-1)) == 0){
-                        myBoard.shotAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i-1));
+                    if(momentalnaLodkaY.elementAt(i)-1 >= 0){
+                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)-1) == 0){
+                            myBoard.shotAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)-1);
+                        }
                     }
                 }
             }
@@ -55,8 +63,9 @@ public class Player {
         }
         else{
             System.out.println("error shoot");
+
         }
-        myBoard.shotAt(x, y);
+        
     }
 
     boolean jeSunknuteVsetko(){
@@ -74,28 +83,49 @@ public class Player {
         else{return false;}
     }
 
-    boolean jeCelaLodka(int x,int y){
+    boolean jeCelaLodka(int x,int y){ //nieco nefunguje
         if(momentalnaLodkaX.size()<=1){
+            System.out.println("momentalnaLodkaX.size()<=1");
             return false;
         }
 
         boolean celaLodka = true;
 
         if(momentalnaLodkaX.elementAt(0) == momentalnaLodkaX.elementAt(1)){ //lodka je vertikalne
+            System.out.println("lodka je horizontalne");
             for(int i=0;i<momentalnaLodkaY.size();i++){
-                if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0),momentalnaLodkaY.elementAt(i+1)) == 1 ||
-                myBoard.whatsAt(momentalnaLodkaX.elementAt(0),momentalnaLodkaY.elementAt(i-1)) == 1){ //out of bounds
-                    celaLodka = false;
+                if(momentalnaLodkaY.elementAt(i)+1 <10){ //out of bounds check
+                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0),momentalnaLodkaY.elementAt(i)+1) == 1){
+                        celaLodka = false;
+                        System.out.println("ccccc");
+                    }
+                }
+                if(momentalnaLodkaY.elementAt(i)-1 >= 0){
+                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0),momentalnaLodkaY.elementAt(i)-1) == 1){
+                        celaLodka = false;
+                        System.out.println("dddd");
+                    }
                 }
             }
         }
         else if(momentalnaLodkaY.elementAt(0) == momentalnaLodkaY.elementAt(1)){ //lodka je vertikalne
             for(int i=0;i<momentalnaLodkaX.size();i++){
-                if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i+1),momentalnaLodkaY.elementAt(0)) == 1 ||
-                myBoard.whatsAt(momentalnaLodkaX.elementAt(i-1),momentalnaLodkaY.elementAt(0)) == 1){ // out of bounds
-                    celaLodka = false;
+                if(momentalnaLodkaX.elementAt(i)+1 < 10){
+                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i)+1,momentalnaLodkaY.elementAt(0)) == 1){
+                        celaLodka = false;
+                        System.out.printf("bbbb %d, %d", momentalnaLodkaX.elementAt(i)-1,momentalnaLodkaY.elementAt(0));
+                        System.out.printf(" bbb %d\n", myBoard.whatsAt(momentalnaLodkaX.elementAt(i)-1,momentalnaLodkaY.elementAt(0)));
+                    }
+                }
+                if(momentalnaLodkaX.elementAt(i)-1 >= 0){
+                    if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i)-1,momentalnaLodkaY.elementAt(0)) == 1){
+                        celaLodka = false;
+                        System.out.printf("aaaaaaa %d, %d", momentalnaLodkaX.elementAt(i)-1,momentalnaLodkaY.elementAt(0));
+                        System.out.printf(" aaa %d\n", myBoard.whatsAt(momentalnaLodkaX.elementAt(i)-1,momentalnaLodkaY.elementAt(0)));
+                    }
                 }
             }
+            System.out.println("lodka je vertikalne");
         }
         else{
             System.out.println("error jeCelaLodka");

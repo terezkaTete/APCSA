@@ -20,13 +20,14 @@ public class Computer extends Player{
             a = rand.nextInt(10); //+-1 ci ako?
             b = rand.nextInt(10);
             shoot(a,b);
+            prvyTah = false;
+            createNewStack();
         }
         else{            
-            if(uspesnaStrela && !potopilSomPraveLodku){ 
+            if(momentalnaLodkaX.size() > 0 && !potopilSomPraveLodku){ //predtym bola uspesnaStrela && !potopilSomPraveLodku
                 if(momentalnaLodkaX.size() == 1){ //strialanie po prvom hite, ked este neviem ci je lodka vertikalna alebo horizontalna
                     boolean uzSomStrelila = false;
                     if(momentalnaLodkaY.elementAt(0)-1 >= 0){
-                        boolean strelilaSom = false;
                         if(whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(0)-1) != 2 
                         && whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(0)-1) != 3 ) {
                             shoot(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(0)-1);
@@ -95,7 +96,6 @@ public class Computer extends Player{
                 //checknut tie 4 policka naookolo - ak je jedno z nich uz 3, tak potom do toho opacneho smeru
                 // pamatat si lodicku, ktoru strielam - prestat, iba ak je dostrielana, ak je zastrelena voda na jednej strane, tak streilat na druhu
             }
-
             else{
                 if(potopilSomPraveLodku){
                     createNewStack();
@@ -118,7 +118,7 @@ public class Computer extends Player{
         stack2.removeAllElements();
         for(int i=0;i<10;i++){
             for(int j=0;j<10;j++){
-                if(whatsAt(i, j) == 0 || whatsAt(i, j) == 0){//&& vybuchnuta4 && vybuchnuta5
+                if(whatsAt(i, j) == 0 || whatsAt(i, j) == 1){//&& vybuchnuta4 && vybuchnuta5
                     if(i%2 == j%2){
                         stack1.push(i);
                         stack2.push(j);

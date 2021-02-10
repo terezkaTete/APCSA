@@ -1,5 +1,5 @@
 //generateRandomBoard - momentalne sa mozu lodicky dotykat sikmo
-//upravit to printovanie - nech sa hracovi zobrazuje jeho boarda a superova inak -done
+
 
 import java.util.Random;
 
@@ -151,7 +151,8 @@ public class Grid {
             this.board[a][b] = 3;
         }
         else{
-            System.out.print("error shotAt");
+            System.out.println("error shotAt");
+            System.out.println(this.board[a][b]);
         }
     }
 }

@@ -1,1 +1,2 @@
-tuto mozes pisat poznamky
+- mozno sa mi nenuluje dlzka lodky
+- prerobit out bounds na pole s borderom

@@ -1,16 +1,14 @@
-
-//skoro done, len dorobit break cyklu a mozno blbosti na zaciatok
 import java.util.concurrent.TimeUnit;
 
 public class Game {
 
     public static void main(String[] args) {
 
-        System.out.println("This is battleship game.");
+        System.out.println("This is a battleship game.");
         // if you want rules, type rules, else start
         // set difficulty (normal or impossible haha)
-        Human hrac1 = new Human();
         Computer hrac2 = new Computer();
+        Human hrac1 = new Human();
 
         hrac1.makeTurn();
         int lastPlayer = 1;
