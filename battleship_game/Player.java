@@ -34,23 +34,23 @@ public class Player {
                 // "shooting" at all the adjacent fields
                 for(int i=0;i<momentalnaLodkaX.size(); i++){
                     if(momentalnaLodkaX.elementAt(i)+1 < 10){
-                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i)+1, momentalnaLodkaY.elementAt(0)) == 0){ //boa out of bounds
-                            myBoard.shotAt(momentalnaLodkaX.elementAt(i)+1, momentalnaLodkaY.elementAt(0));
+                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i)+1, momentalnaLodkaY.elementAt(i)) == 0){ //boa out of bounds
+                            myBoard.shotAt(momentalnaLodkaX.elementAt(i)+1, momentalnaLodkaY.elementAt(i));
                         }
                     }
                     if(momentalnaLodkaX.elementAt(i)-1 >= 0){
-                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i)-1, momentalnaLodkaY.elementAt(0)) == 0){
-                            myBoard.shotAt(momentalnaLodkaX.elementAt(i)-1, momentalnaLodkaY.elementAt(0));
+                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i)-1, momentalnaLodkaY.elementAt(i)) == 0){
+                            myBoard.shotAt(momentalnaLodkaX.elementAt(i)-1, momentalnaLodkaY.elementAt(i));
                         }
                     }
                     if(momentalnaLodkaY.elementAt(i)+1 < 10){
-                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)+1) == 0){
-                            myBoard.shotAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)+1);
+                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i), momentalnaLodkaY.elementAt(i)+1) == 0){
+                            myBoard.shotAt(momentalnaLodkaX.elementAt(i), momentalnaLodkaY.elementAt(i)+1);
                         }
                     }
                     if(momentalnaLodkaY.elementAt(i)-1 >= 0){
-                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)-1) == 0){
-                            myBoard.shotAt(momentalnaLodkaX.elementAt(0), momentalnaLodkaY.elementAt(i)-1);
+                        if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i), momentalnaLodkaY.elementAt(i)-1) == 0){
+                            myBoard.shotAt(momentalnaLodkaX.elementAt(i), momentalnaLodkaY.elementAt(i)-1);
                         }
                     }
                 }
@@ -85,25 +85,21 @@ public class Player {
 
     boolean jeCelaLodka(int x,int y){ //nieco nefunguje
         if(momentalnaLodkaX.size()<=1){
-            System.out.println("momentalnaLodkaX.size()<=1");
             return false;
         }
 
         boolean celaLodka = true;
 
         if(momentalnaLodkaX.elementAt(0) == momentalnaLodkaX.elementAt(1)){ //lodka je vertikalne
-            System.out.println("lodka je horizontalne");
             for(int i=0;i<momentalnaLodkaY.size();i++){
                 if(momentalnaLodkaY.elementAt(i)+1 <10){ //out of bounds check
                     if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0),momentalnaLodkaY.elementAt(i)+1) == 1){
                         celaLodka = false;
-                        System.out.println("ccccc");
                     }
                 }
                 if(momentalnaLodkaY.elementAt(i)-1 >= 0){
                     if(myBoard.whatsAt(momentalnaLodkaX.elementAt(0),momentalnaLodkaY.elementAt(i)-1) == 1){
                         celaLodka = false;
-                        System.out.println("dddd");
                     }
                 }
             }
@@ -113,19 +109,14 @@ public class Player {
                 if(momentalnaLodkaX.elementAt(i)+1 < 10){
                     if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i)+1,momentalnaLodkaY.elementAt(0)) == 1){
                         celaLodka = false;
-                        System.out.printf("bbbb %d, %d", momentalnaLodkaX.elementAt(i)-1,momentalnaLodkaY.elementAt(0));
-                        System.out.printf(" bbb %d\n", myBoard.whatsAt(momentalnaLodkaX.elementAt(i)-1,momentalnaLodkaY.elementAt(0)));
                     }
                 }
                 if(momentalnaLodkaX.elementAt(i)-1 >= 0){
                     if(myBoard.whatsAt(momentalnaLodkaX.elementAt(i)-1,momentalnaLodkaY.elementAt(0)) == 1){
                         celaLodka = false;
-                        System.out.printf("aaaaaaa %d, %d", momentalnaLodkaX.elementAt(i)-1,momentalnaLodkaY.elementAt(0));
-                        System.out.printf(" aaa %d\n", myBoard.whatsAt(momentalnaLodkaX.elementAt(i)-1,momentalnaLodkaY.elementAt(0)));
                     }
                 }
             }
-            System.out.println("lodka je vertikalne");
         }
         else{
             System.out.println("error jeCelaLodka");
@@ -137,56 +128,5 @@ public class Player {
         else{
             return false;
         }
-        //ak checknut oba konce - nemusia byt necessary koniec a zaziatok pola
-        //ak na jednom z nich je 1 aka nieje voda, tak 
-
-        //toto pod tymto funguje, ale grc
-        /*for(int i=1;i<5;i++){
-            if(myBoard.whatsAt(x+i,y) == 3){
-                
-            }
-            else{
-                if(myBoard.whatsAt(x+i,y) == 1){
-                    celaLodka = false;
-                }
-                break;
-            }
-        }
-        for(int i=1;i<5;i++){
-            if(myBoard.whatsAt(x-i,y) == 3){
-                
-            }
-            else{
-                if(myBoard.whatsAt(x-i,y) == 1){
-                    celaLodka = false;
-                }
-                break;
-            }
-        }
-        for(int i=1;i<5;i++){
-            if(myBoard.whatsAt(x,y+i) == 3){
-                
-            }
-            else{
-                if(myBoard.whatsAt(x,y+i) == 1){
-                    celaLodka = false;
-                }
-                break;
-            }
-        }
-        for(int i=1;i<5;i++){
-            if(myBoard.whatsAt(x,y-i) == 3){
-                
-            }
-            else{
-                if(myBoard.whatsAt(x,y-i) == 1){
-                    celaLodka = false;
-                }
-                break;
-            }
-        }
-        if(celaLodka){return true;}
-        else{return false;}
-        */
     }
 }
